@@ -7,10 +7,21 @@ const App = () => {
   const [currentQues, setCurrentQues] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
-  const [timer, setTimer] = useState(100);
+  const [timer, setTimer] = useState(10);
 
-  const handleAnswerClick = () => {
-    
+  console.log();
+
+  const handleAnswerClick = (selectedOption) => {
+    if (selectedOption === questionData[currentQues].correctOption) {
+      setScore((prevScore) => prevScore + 1);
+    }
+
+    if (currentQues < questionData.length - 1) {
+      setCurrentQues((prevQuestion) => prevQuestion + 1);
+      setTimer(10);
+    } else {
+      setShowScore(true)
+    }
   }
 
   return (
@@ -18,7 +29,7 @@ const App = () => {
       <div className='bg-white p-5 w-[80%] md:w-[50%] rounded-md shadow-black shadow-md'>
         {showScore ? (
           <div className='text-center'>
-            <h2 className="font-semibold text-xl">Your Score: 3/3</h2>
+            <h2 className="font-semibold text-xl">Your Score: {score}/{questionData.length - 1}</h2>
             <button className="bg-red-500 my-3 text-white font-bold py-2 px-4 rounded-full">
               Restart
             </button>
