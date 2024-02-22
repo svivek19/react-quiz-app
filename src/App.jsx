@@ -20,7 +20,7 @@ const App = () => {
       setShowScore(true);
     }
 
-    return ()=>clearInterval(interval);
+    return () => clearInterval(interval);
 
   }, [timer, showScore])
 
@@ -60,12 +60,18 @@ const App = () => {
           <div className='text-center'>
             <h2 className="font-bold text-3xl text-blue-500">Question {currentQues + 1}</h2>
             <p className='my-4 text-xl font-medium'>{questionData[currentQues].question}</p>
-            <div className="space-x-4 my-6">
+            <div className="space-x-4 my-6 flex flex-wrap justify-center">
               {questionData[currentQues].options.map((option, index) => (
-                <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full" key={index} onClick={() => handleAnswerClick(index)}>{option}</button>
+                <button
+                  className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full mb-2 md:mb-0 md:mr-2"
+                  key={index}
+                  onClick={() => handleAnswerClick(index)}
+                >
+                  {option}
+                </button>
               ))}
-
             </div>
+
             <div className='font-semibold'>Time Left: <span className='font-bold'>{timer}s</span></div>
           </div>
         )}
