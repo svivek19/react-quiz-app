@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import questionData from './questions.json';
 
 const App = () => {
@@ -9,7 +9,20 @@ const App = () => {
   const [showScore, setShowScore] = useState(false);
   const [timer, setTimer] = useState(10);
 
-  console.log();
+  useEffect(() => {
+    let interval;
+    if (timer > 0 && !showScore) {
+      interval = setInterval(() => {
+        setTimer((prevTime) => prevTime - 1);
+      }, 1000)
+    } else {
+      clearInterval(interval);
+      setShowScore(true);
+    }
+
+    return ()=>clearInterval(interval);
+
+  }, [timer, showScore])
 
   const handleAnswerClick = (selectedOption) => {
     if (selectedOption === questionData[currentQues].correctOption) {
