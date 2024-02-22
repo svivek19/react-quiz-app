@@ -13,24 +13,33 @@ const App = () => {
 
   const handleAnswerClick = (selectedOption) => {
     if (selectedOption === questionData[currentQues].correctOption) {
-      setScore((prevScore) => prevScore + 1);
+      setScore((prevScore => prevScore + 1));
     }
 
     if (currentQues < questionData.length - 1) {
-      setCurrentQues((prevQuestion) => prevQuestion + 1);
+      setCurrentQues(prevQuestion => prevQuestion + 1);
       setTimer(10);
     } else {
       setShowScore(true)
     }
   }
 
+  const handleReset = () => {
+    setCurrentQues(0);
+    setScore(0);
+    setShowScore(false);
+    setTimer(10);
+
+  }
+
+
   return (
     <div className='w-screen h-screen flex justify-center items-center bg-slate-800'>
       <div className='bg-white p-5 w-[80%] md:w-[50%] rounded-md shadow-black shadow-md'>
         {showScore ? (
           <div className='text-center'>
-            <h2 className="font-semibold text-xl">Your Score: {score}/{questionData.length - 1}</h2>
-            <button className="bg-red-500 my-3 text-white font-bold py-2 px-4 rounded-full">
+            <h2 className="font-semibold text-xl">Your Score: {score}/{questionData.length}</h2>
+            <button className="bg-red-500 my-3 text-white font-bold py-2 px-4 rounded-full" onClick={handleReset}>
               Restart
             </button>
           </div>
@@ -40,7 +49,7 @@ const App = () => {
             <p className='my-4 text-xl font-medium'>{questionData[currentQues].question}</p>
             <div className="space-x-4 my-6">
               {questionData[currentQues].options.map((option, index) => (
-                <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full" key={index} onClick={() => handleAnswerClick(option)}>{option}</button>
+                <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full" key={index} onClick={() => handleAnswerClick(index)}>{option}</button>
               ))}
 
             </div>
